@@ -3,9 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Webpack Exercise</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <title>To-do List</title>
   <script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script><script defer src="print.bundle.js"></script></head>
   <body>
-    <h1>Hello webpack!</h1>
+    <section class="wrapper">
+      <div class="title">
+        <h2>Today's To Do</h2>
+        <i class="fa-solid fa-rotate"></i>
+      </div>
+      <div class="input">
+        <input type="text" placeholder="Add to your list..." />
+        <i class="fa-solid fa-arrow-turn-down-left"></i>
+      </div>
+      <ul title="taskHolder"></ul>
+      <div class="button-wrapper">
+        <button class="button">Clear all completed</button>
+      </div>
+    </section>
   </body>
 </html>
