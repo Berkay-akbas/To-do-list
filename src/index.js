@@ -1,9 +1,5 @@
 import './style.css';
-// import { addNew } from './functions.js'
-// import { display } from './functions.js'
 import { toggle } from './functions.js';
-
-// display();
 
 let taskList = [];
 let localStorageList = [];

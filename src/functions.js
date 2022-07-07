@@ -104,10 +104,3 @@ export const display = () => {
     toggleInput.addEventListener('click', toggle);
   }
 };
-
-// let taskList = [];
-// let localStorageList = [];
-// localStorageList = JSON.parse(localStorage.getItem('List Storage'));
-// taskList = [...localStorageList];
-
-// export { taskList}
