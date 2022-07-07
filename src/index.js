@@ -1,8 +1,7 @@
 import './style.css';
 // import { addNew } from './functions.js'
 // import { display } from './functions.js'
-import { toggle } from './functions.js'
-
+import { toggle } from './functions.js';
 
 // display();
 
@@ -10,7 +9,6 @@ let taskList = [];
 let localStorageList = [];
 localStorageList = JSON.parse(localStorage.getItem('List Storage'));
 taskList = [...localStorageList];
-
 
 const edit = (event) => {
   const editInput = document.querySelectorAll('.userTask');

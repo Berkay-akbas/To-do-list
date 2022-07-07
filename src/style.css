@@ -63,6 +63,7 @@
 
 .button-wrapper {
   display: flex;
+  text-align: center;
 }
 
 .fa-ellipsis-vertical {
@@ -76,10 +77,6 @@
   resize: none;
   outline: none;
   height: 3rem;
-}
-
-.button-wrapper {
-  text-align: center;
 }
 
 .button {
@@ -97,16 +94,4 @@
 
 .fa-solid {
   color: #6f6f6f;
-}
-
-/* .fa-trash-can {
-  display: none;
-} */
-
-.hidden {
-  display: none;
-}
-
-.display {
-  display: block;
 }

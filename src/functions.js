@@ -11,7 +11,7 @@ export const toggle = (event) => {
   editInput[index].parentNode.parentNode.classList.toggle('active');
 };
 
-export let taskList = [];
+export const taskList = [];
 
 export class Task {
   constructor(description) {
@@ -111,4 +111,3 @@ export const display = () => {
 // taskList = [...localStorageList];
 
 // export { taskList}
-
