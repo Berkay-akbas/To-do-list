@@ -33,13 +33,6 @@
   font-style: italic;
 }
 
-textarea {
-  border: none;
-  background-color: transparent;
-  resize: none;
-  outline: none;
-}
-
 .listholder {
   padding: 0;
   margin: 0;
@@ -52,6 +45,10 @@ textarea {
   height: 3rem;
 }
 
+/* .listitem:focus-within {
+  background-color: rgba(91, 255, 162, 0.992);
+} */
+
 .title {
   display: flex;
   align-items: center;
@@ -60,10 +57,25 @@ textarea {
   padding: 0 1rem;
 }
 
-.check p {
-  text-align: left;
-  flex-grow: 1;
+.active {
+  background-color: yellow;
+}
+
+.button-wrapper {
+  display: flex;
+}
+
+.fa-ellipsis-vertical {
   padding-left: 0.5rem;
+}
+
+.userTask {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  height: 3rem;
 }
 
 .button-wrapper {
@@ -84,5 +96,17 @@ textarea {
 }
 
 .fa-solid {
-  color: #f1efef;
+  color: #6f6f6f;
+}
+
+/* .fa-trash-can {
+  display: none;
+} */
+
+.hidden {
+  display: none;
+}
+
+.display {
+  display: block;
 }

@@ -1,18 +1,26 @@
-import './style.css';
-// import { addNew } from './functions.js'
-// import { display } from './functions.js'
-import { toggle } from './functions.js'
+export const toggle = (event) => {
+  const editInput = document.querySelectorAll('.userTask');
+  const item = event.target.closest('li');
+  const nodes = Array.from(item.parentNode.children);
+  const index = nodes.indexOf(item);
+  for (let i = 0; i < editInput.length; i += 1) {
+    if (editInput[i].parentNode.parentNode.classList.contains('active')) {
+      editInput[i].parentNode.parentNode.classList.toggle('active');
+    }
+  }
+  editInput[index].parentNode.parentNode.classList.toggle('active');
+};
 
+export let taskList = [];
 
-// display();
+export class Task {
+  constructor(description) {
+    this.description = description;
+    this.completed = false;
+  }
+}
 
-let taskList = [];
-let localStorageList = [];
-localStorageList = JSON.parse(localStorage.getItem('List Storage'));
-taskList = [...localStorageList];
-
-
-const edit = (event) => {
+export const edit = (event) => {
   const editInput = document.querySelectorAll('.userTask');
   const item = event.target.closest('li');
   const nodes = Array.from(item.parentNode.children);
@@ -24,7 +32,7 @@ const edit = (event) => {
   localStorage.setItem('List Storage', JSON.stringify(taskList));
 };
 
-const removeItem = (event) => {
+export const removeItem = (event) => {
   const item = event.target.closest('li');
   const nodes = Array.from(item.parentNode.children);
   const index = nodes.indexOf(item);
@@ -36,7 +44,7 @@ const removeItem = (event) => {
   localStorage.setItem('List Storage', JSON.stringify(taskList));
 };
 
-const populate = () => {
+export const populate = () => {
   const taskHolder = document.querySelector('.listholder');
   for (let i = 0; i < taskList.length; i += 1) {
     taskList[i].index = i + 1;
@@ -64,14 +72,7 @@ const populate = () => {
   toggleInput.addEventListener('click', toggle);
 };
 
-class Task {
-  constructor(description) {
-    this.description = description;
-    this.completed = false;
-  }
-}
-
-const addNew = () => {
+export const addNew = () => {
   const userInput = document.getElementById('text').value;
   const newTask = new Task(userInput);
   taskList.push(newTask);
@@ -79,10 +80,7 @@ const addNew = () => {
   localStorage.setItem('List Storage', JSON.stringify(taskList));
 };
 
-const addButton = document.querySelector('.fa-greater-than');
-addButton.addEventListener('click', addNew);
-
-const display = () => {
+export const display = () => {
   const taskHolder = document.querySelector('.listholder');
   for (let i = 0; i < taskList.length; i += 1) {
     const listItem = document.createElement('li');
@@ -106,4 +104,11 @@ const display = () => {
     toggleInput.addEventListener('click', toggle);
   }
 };
-display();
+
+// let taskList = [];
+// let localStorageList = [];
+// localStorageList = JSON.parse(localStorage.getItem('List Storage'));
+// taskList = [...localStorageList];
+
+// export { taskList}
+
