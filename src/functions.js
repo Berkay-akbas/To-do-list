@@ -1,3 +1,5 @@
+import { taskList } from "./index.js";
+
 export const toggle = (event) => {
   const editInput = document.querySelectorAll('.userTask');
   const item = event.target.closest('li');
@@ -11,7 +13,7 @@ export const toggle = (event) => {
   editInput[index].parentNode.parentNode.classList.toggle('active');
 };
 
-export const taskList = [];
+// export const taskList = [];
 
 export class Task {
   constructor(description) {
