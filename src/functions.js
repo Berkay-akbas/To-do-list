@@ -1,4 +1,4 @@
-import { taskList } from "./index.js";
+import { taskList } from './index.js'; // eslint-disable-line
 
 export const toggle = (event) => {
   const editInput = document.querySelectorAll('.userTask');
@@ -12,8 +12,6 @@ export const toggle = (event) => {
   }
   editInput[index].parentNode.parentNode.classList.toggle('active');
 };
-
-// export const taskList = [];
 
 export class Task {
   constructor(description) {

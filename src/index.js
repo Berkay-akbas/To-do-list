@@ -1,22 +1,16 @@
 import './style.css';
-import { toggle } from './functions.js';
-import { removeItem, edit, populate, display, addNew} from './functions.js';
+// eslint-disable-next-line
+import { 
+  display, addNew,
+} from './functions.js';
 
-export let taskList = [];
+export let taskList = []; // eslint-disable-line
 let localStorageList = [];
 localStorageList = JSON.parse(localStorage.getItem('List Storage'));
 
- if(localStorageList !== null) {
+if (localStorageList !== null) {
   taskList = [...localStorageList];
 }
-
-class Task {
-  constructor(description) {
-    this.description = description;
-    this.completed = false;
-  }
-}
-
 
 const addButton = document.querySelector('.fa-greater-than');
 addButton.addEventListener('click', addNew);
