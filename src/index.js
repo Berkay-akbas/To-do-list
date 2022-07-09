@@ -1,18 +1,13 @@
 import './style.css';
 // eslint-disable-next-line
 import { 
-  display, addNew,
+  display, addNew, removeAll
 } from './functions.js';
-
-export let taskList = []; // eslint-disable-line
-let localStorageList = [];
-localStorageList = JSON.parse(localStorage.getItem('List Storage'));
-
-if (localStorageList !== null) {
-  taskList = [...localStorageList];
-}
 
 const addButton = document.querySelector('.fa-greater-than');
 addButton.addEventListener('click', addNew);
+
+const removeAllButton = document.getElementById('removeAll');
+removeAllButton.addEventListener('click', removeAll)
 
 display();

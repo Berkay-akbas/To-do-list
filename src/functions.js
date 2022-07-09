@@ -1,4 +1,5 @@
-import { taskList } from './index.js'; // eslint-disable-line
+import { before, set } from 'lodash';
+import { taskList } from './index.js'; // eslint-disable
 
 export const toggle = (event) => {
   const editInput = document.querySelectorAll('.userTask');
@@ -21,37 +22,60 @@ export class Task {
 }
 
 export const edit = (event) => {
+  localStorageList = JSON.parse(localStorage.getItem('List Storage'));
   const editInput = document.querySelectorAll('.userTask');
   const item = event.target.closest('li');
   const nodes = Array.from(item.parentNode.children);
   const index = nodes.indexOf(item);
-  taskList[index].description = editInput[index].value;
-  for (let i = 0; i < taskList.length; i += 1) {
-    taskList[i].index = i + 1;
+  localStorageList[index].description = editInput[index].value;
+  for (let i = 0; i < localStorageList.length; i += 1) {
+    localStorageList[i].index = i + 1;
   }
-  localStorage.setItem('List Storage', JSON.stringify(taskList));
+  localStorage.setItem('List Storage', JSON.stringify(localStorageList));
 };
 
 export const removeItem = (event) => {
+  localStorageList = JSON.parse(localStorage.getItem('List Storage'));
   const item = event.target.closest('li');
   const nodes = Array.from(item.parentNode.children);
   const index = nodes.indexOf(item);
-  taskList.splice(index, 1);
+  localStorageList.splice(index, 1);
   item.remove();
-  for (let i = 0; i < taskList.length; i += 1) {
-    taskList[i].index = i + 1;
+  for (let i = 0; i < localStorageList.length; i += 1) {
+    localStorageList[i].index = i + 1;
   }
-  localStorage.setItem('List Storage', JSON.stringify(taskList));
+  localStorage.setItem('List Storage', JSON.stringify(localStorageList));
 };
+
+export const removeAll = () => {
+  localStorageList = JSON.parse(localStorage.getItem('List Storage'));
+  const all = document.querySelectorAll('li');
+  all.forEach(li => {
+    li.remove();
+  })
+  
+  const arr = [];
+  localStorageList.forEach((item) => {
+    if (item.completed === true) {
+      arr.push(item);
+    }
+  });
+  let a = localStorageList.filter((item) => !arr.includes(item));
+  localStorage.setItem('List Storage', JSON.stringify(a));
+  display();
+  
+}
+
+let localStorageList = [];
 
 export const populate = () => {
   const taskHolder = document.querySelector('.listholder');
-  for (let i = 0; i < taskList.length; i += 1) {
-    taskList[i].index = i + 1;
+  for (let i = 0; i < localStorageList.length; i += 1) {
+    localStorageList[i].index = i + 1;
   }
   const listItem = document.createElement('li');
   listItem.classList.add('listitem');
-  const a = taskList.slice(-1);
+  const a = localStorageList.slice(-1);
   listItem.innerHTML = `
     <div class="check">
       <input type="checkbox" class="checkbox"/>
@@ -70,25 +94,58 @@ export const populate = () => {
   editInput.addEventListener('input', edit);
   const toggleInput = listItem.querySelector('.userTask');
   toggleInput.addEventListener('click', toggle);
+  const checkbox = listItem.querySelector('input[type=checkbox]')
+  checkbox.addEventListener('change', checked);
 };
+
+const checked = (event) => {
+  const item = event.target.closest('li');
+  const text = event.target.closest('input[type=text]');
+  const nodes = Array.from(item.parentNode.children);
+  const index = nodes.indexOf(item);
+  const taskAll = localStorage.getItem('List Storage');
+  let taskToChange = JSON.parse(taskAll);
+  item.classList.toggle('line');
+  if ((taskToChange[index]['completed'] === true) ) {
+    taskToChange[index]['completed'] = false;
+  } else {
+    taskToChange[index]['completed'] = true;
+  }
+  localStorage.setItem('List Storage', JSON.stringify(taskToChange));
+}
 
 export const addNew = () => {
+  if (JSON.parse(localStorage.getItem('List Storage')) === null) {
+    localStorageList = [];
+    localStorage.setItem('List Storage', JSON.stringify(localStorageList));
+  }
+  localStorageList = JSON.parse(localStorage.getItem('List Storage'));
   const userInput = document.getElementById('text').value;
   const newTask = new Task(userInput);
-  taskList.push(newTask);
+  localStorageList.push(newTask);
   populate();
-  localStorage.setItem('List Storage', JSON.stringify(taskList));
+  localStorage.setItem('List Storage', JSON.stringify(localStorageList));
+  
 };
 
+
 export const display = () => {
+  localStorageList = JSON.parse(localStorage.getItem('List Storage'));
   const taskHolder = document.querySelector('.listholder');
-  for (let i = 0; i < taskList.length; i += 1) {
+  for (let i = 0; i < localStorageList.length; i += 1) {
     const listItem = document.createElement('li');
     listItem.classList.add('listitem');
+    var x = String(/checked/);
+    x = x.substring(1, x.length-1);
+    let ifcheck;
+    if (localStorageList[i].completed) {
+      ifcheck = x;
+      listItem.classList.toggle('line');
+    }
     listItem.innerHTML = `
     <div class="check">
-      <input type="checkbox" class="checkbox"/>
-      <input type="text" class="userTask" value="${taskList[i].description}">
+      <input type="checkbox" class="checkbox" ${ifcheck}>
+      <input type="text" class="userTask" value="${localStorageList[i].description}">
       <div class="button-wrapper">
         <i class="fa-solid fa-trash-can"></i>
         <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -102,5 +159,8 @@ export const display = () => {
     editInput.addEventListener('input', edit);
     const toggleInput = listItem.querySelector('.userTask');
     toggleInput.addEventListener('click', toggle);
+    const checkbox = listItem.querySelector('input[type=checkbox]')
+    checkbox.addEventListener('change', checked);
   }
 };
+

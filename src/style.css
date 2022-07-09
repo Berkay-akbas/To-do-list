@@ -95,3 +95,7 @@
 .fa-solid {
   color: #6f6f6f;
 }
+
+.line {
+  text-decoration: line-through;
+}
