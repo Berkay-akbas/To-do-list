@@ -1,38 +1,13 @@
 import './style.css';
+// eslint-disable-next-line
+import { 
+  display, addNew, removeAll,
+} from './functions.js';
 
-const taskList = [
-  {
-    description: 'hi',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'hello',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'howdy',
-    completed: true,
-    index: 2,
-  },
-];
+const addButton = document.querySelector('.fa-greater-than');
+addButton.addEventListener('click', addNew);
 
-const populate = () => {
-  const taskHolder = document.querySelector('.listholder');
-  for (let i = 0; i < taskList.length; i += 1) {
-    const listItem = document.createElement('li');
-    listItem.classList.add('listitem');
-    listItem.innerHTML = `
-    <div class="check">
-      <input type="checkbox" />
-      <p>${taskList[i].description}</p>
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-    </div>
-  </li>
-    `;
-    taskHolder.appendChild(listItem);
-  }
-};
+const removeAllButton = document.getElementById('removeAll');
+removeAllButton.addEventListener('click', removeAll);
 
-populate();
+display();
